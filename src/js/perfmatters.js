@@ -1,6 +1,9 @@
 // Measuring the Critical Rendering Path with Navigation Timing
 // https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp
+import '../css/style.css';
+import '../css/print.css';
 
+/*eslint-disable no-unused-vars*/
 function logCRP() {
   var t = window.performance.timing,
     dcl = t.domContentLoadedEventStart - t.domLoading,
