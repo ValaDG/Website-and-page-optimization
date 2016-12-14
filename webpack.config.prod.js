@@ -3,14 +3,17 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ImageminPlugin from 'imagemin-webpack-plugin'
+
 
 export default {
   debug: true,
   devtool: 'source-map',
   noInfo: false,
   entry: {
-    vendor: path.resolve(__dirname, 'src/vendor'),
-    main: path.resolve(__dirname, 'src/index')
+    //vendor: path.resolve(__dirname, 'src/vendor'),
+    main: path.resolve(__dirname, 'src/js/perfmatters')
   },
   target: 'web',
   output: {
@@ -27,9 +30,9 @@ export default {
 
     // Use CommonsChunkPlugin to create a separate bundle
     // of vendor libraries so that they're cached separately.
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
-    }),
+    //new webpack.optimize.CommonsChunkPlugin({
+    //name: 'vendor'
+    // }),
 
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
@@ -53,12 +56,29 @@ export default {
     new webpack.optimize.DedupePlugin(),
 
     // Minify JS
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+
+     new ImageminPlugin({
+      disable: process.env.NODE_ENV !== 'production', // Disable during development
+      pngquant: {
+        quality: '95-100'
+      },
+      jpegtran : {progressive:true}
+    }),
+
+    new CopyWebpackPlugin([
+      { from: 'src/img', to: 'img' }
+    ])
   ],
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-      {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
+      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
+
+      {
+        test: /\.(png|jpg|ttf|eot)$/, exclude: /node_modules/,
+        loader: 'url-loader?limit=10000!img?minimize&optimizationLevel=5&progressive=true'
+      }
     ]
   }
 };

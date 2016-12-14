@@ -1,5 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+
 
 export default {
   debug: true,
@@ -19,12 +21,24 @@ export default {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       inject: true
-    })
+    }),
+
+
+    new CopyWebpackPlugin([
+      { from: 'src/img', to: 'img' }
+    ])
+
+
+
   ],
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-      {test: /\.css$/, loaders: ['style','css']}
+      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
+      { test: /\.css$/, loaders: ['style', 'css'] },
+      {
+        test: /\.(png|jpg|ttf|eot)$/, exclude: /node_modules/,
+        loader: 'url-loader?limit=10000!img?minimize&optimizationLevel=5&progressive=true'
+      }
     ]
   }
 }

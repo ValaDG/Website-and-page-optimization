@@ -2,6 +2,7 @@
 // https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp
 import '../css/style.css';
 import '../css/print.css';
+import './analytics.js';
 
 /*eslint-disable no-unused-vars*/
 function logCRP() {
@@ -12,6 +13,6 @@ function logCRP() {
   stats.textContent = 'DCL: ' + dcl + 'ms, onload: ' + complete + 'ms';
 }
 
-window.addEventListener("load", function(event) {
+window.addEventListener("load", function (event) {
   logCRP();
 });
