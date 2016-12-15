@@ -3,8 +3,8 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ImageminPlugin from 'imagemin-webpack-plugin'
+//import CopyWebpackPlugin from 'copy-webpack-plugin';
+
 
 
 export default {
@@ -56,19 +56,7 @@ export default {
     new webpack.optimize.DedupePlugin(),
 
     // Minify JS
-    new webpack.optimize.UglifyJsPlugin(),
-
-     new ImageminPlugin({
-      disable: process.env.NODE_ENV !== 'production', // Disable during development
-      pngquant: {
-        quality: '95-100'
-      },
-      jpegtran : {progressive:true}
-    }),
-
-    new CopyWebpackPlugin([
-      { from: 'src/img', to: 'img' }
-    ])
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [
@@ -76,9 +64,17 @@ export default {
       { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
 
       {
-        test: /\.(png|jpg|ttf|eot)$/, exclude: /node_modules/,
-        loader: 'url-loader?limit=10000!img?minimize&optimizationLevel=5&progressive=true'
-      }
+        test: /\.(ttf|eot)$/, exclude: /node_modules/,
+        loader: 'url-loader?limit=10000'
+      },
+      {
+        test: /\.(jpg|png|gif|svg)$/i,
+        loaders: [
+            'file?name=/img/[name].[ext]',
+            'image-webpack?optimizationLevel=7&interlaced=false, mozjpeg: {quality: 50, progressive:true}'
+        ]
+    }
+
     ]
   }
 };
