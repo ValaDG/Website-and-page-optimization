@@ -4,10 +4,10 @@
 import '../css/style.css';
 import '../css/print.css';
 import './analytics.js';
-import profilePic from '../img/profilepic.jpg';
-import game from '../img/2048.jpg';
-import wpo from '../img/wpo.jpg';
-import mwd from '../img/mwd.jpg';
+import profilePic from '../img/profilepic-min.jpg';
+import game from '../img/2048-min.jpg';
+import wpo from '../img/wpo-min.jpg';
+import mwd from '../img/mwd-min.jpg';
 
 
 function logCRP() {
