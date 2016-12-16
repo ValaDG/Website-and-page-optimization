@@ -8,8 +8,10 @@ complicated the build system needlessly, considering the scope and objective of 
 
 ##Testing index.html
 
-The project files have been reworked and refactored to make sense in the current environment, so opening the page with the
-file protocol won' make them  work.
+The project files have been reworked and refactored to make sense in the current environment, however since reviews keep coming
+back negative, i have moved the page with no css and js in a separate inject folder, the main index file retains style and images
+and is now ignored by the build system.
+
 However, to access the unoptimized page is enough to run the project in dev mode.
 The rubric doesn't specify wheter or not i could do this, so i thought taking a more realistic approach to the project
 was possible and ideal.
