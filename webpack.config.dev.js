@@ -19,13 +19,15 @@ export default {
   plugins: [
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: 'src/inject/index.html',
       inject: true
     }),
 
 
     new CopyWebpackPlugin([
-      { from: 'src/img', to: 'img' }
+      { from: 'src/img', to: 'img' },
+        { from: './src/views', to: './views' }
+
     ])
 
 

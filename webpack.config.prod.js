@@ -2,8 +2,8 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-//import CopyWebpackPlugin from 'copy-webpack-plugin';
+//import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 
 
@@ -23,7 +23,7 @@ export default {
   },
   plugins: [
     // Generate an external css file with a hash in the filename
-    new ExtractTextPlugin('[name].[contenthash].css'),
+    //new ExtractTextPlugin('[name].[contenthash].css'),
 
     // Hash the files using MD5 so that their names change when the content changes.
     new WebpackMd5Hash(),
@@ -36,7 +36,7 @@ export default {
 
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: 'src/inject/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -56,12 +56,17 @@ export default {
     new webpack.optimize.DedupePlugin(),
 
     // Minify JS
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+
+     new CopyWebpackPlugin([
+            // {output}/file.txt
+            { from: './src/views', to: './views' },
+     ])
   ],
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
+      { test: /\.css$/, loaders: ['style', 'css']},
 
       {
         test: /\.(ttf|eot)$/, exclude: /node_modules/,
