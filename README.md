@@ -1,18 +1,17 @@
-##Valerio P4
+##WebSite Javascript Environment test
 
-Hello and thank you for reviewing this project. I have worked hard on it since my last submission,
-and i think i did a better job this time.
+Hello, this project goal is to use webpack and npm scripts to create production ready html js and css, to heavily improve a page performance.
 
-First of all, the main index.html and the pizza site are linked. I didn't include the other html pages as it would have
-complicated the build system needlessly, considering the scope and objective of this project.
+The tools themselves have been put togheter by a pluralsight author, i have left the name in the main npm file.
+
+The original project was created to run whitin the file protocol, it took some rework to adapt it to the current environment.
+
+Some tools used in the build process may be called from a local global installation instead of a project one, so the build process may break. This was just a test, but i managed to achieve a 100 pagespeed score. Go webpack!
 
 ##Testing index.html
 
 The project files have been reworked and refactored to make sense in the current environment, so opening the page with the
 file protocol won't make them  work.
-However, to access the unoptimized page is enough to run the project in dev mode.
-The rubric doesn't specify wheter or not i could do this, so i thought taking a more realistic approach to the project
-was possible and ideal.
 
 To get up and running :
 
